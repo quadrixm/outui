@@ -132,10 +132,26 @@ class Home extends Component {
                     <div className="columns">
                         <div className="column has-text-centered">
                             <h3>Survey List</h3>
+                            <div className="column has-text-centered">
+                                <div className="control has-icons-right">
+                                    <input className="input" type="text" placeholder="Search"/>
+                                    <span className="icon is-small is-right">
+                                        <i className="fas fa-search"></i>
+                                    </span>
+                                </div>
+                            </div>
                             {this.getSurveysOptions()}
                         </div>
                         <div className="column has-text-centered">
                             <h3>Assign Survey</h3>
+                            <div className="column has-text-centered">
+                                <div className="control has-icons-right">
+                                    <input className="input" type="ematextil" placeholder="Search"/>
+                                    <span className="icon is-small is-right">
+                                        <i className="fas fa-search"></i>
+                                    </span>
+                                </div>
+                            </div>
                             {this.getAssignedSurveysOptions()}
                         </div>
                     </div>

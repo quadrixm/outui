@@ -22,8 +22,9 @@ export const saveEmployees = (data) => {
     return (dispatch) => {
         return axios({
             method: 'post',
-            data,
             url: 'http://localhost:8000/employees',
+            data: {"assigned": data},
+            headers: {'Content-Type': 'application/json' }
         })
             .then(response => {
                 dispatch({
