@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 
 
-class Survey extends Component {
+export class AssignedSurvey extends Component {
 
     constructor(props){
         super(props);
@@ -10,17 +10,19 @@ class Survey extends Component {
     componentDidUpdate(prevProps, prevState) {
     }
 
-    onAddClick = (e) => {
-        this.props.handleAdd();
+    onRemoveClick = (e) => {
+        this.props.handleRemove();
     };
 
     render() {
         return (
             <div className="columns">
-                <div className="column has-text-centered">
+                <div className="column has-text-left">
                     <span>{this.props.suvey.name}</span>
-                    <button className="button is-primary" onClick={this.onAddClick}>
-                        Add
+                </div>
+                <div className="column has-text-right">
+                    <button className="button is-primary" onClick={this.onRemoveClick}>
+                        Remove
                     </button>
                 </div>
             </div>
