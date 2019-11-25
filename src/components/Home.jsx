@@ -9,6 +9,10 @@ class Home extends Component {
 
     constructor(props) {
         super(props);
+        this.state = {
+            assignedSurveys: [],
+            selectedEmployeeId: null
+        }
     }
 
     componentDidMount() {
@@ -21,20 +25,12 @@ class Home extends Component {
     }
 
     getEmployeeOptions = () => {
-        let employeeOptions = [];
+        let employeeOptions = [<option value=''>Select an employee</option>];
         for (let i in this.props.employees) {
             let employee = this.props.employees[i];
             employeeOptions.push(<option value={employee.id}>{employee.name}</option>)
         }
         return employeeOptions;
-    };
-
-    handleAdd = (survey) => {
-        alert(survey.name + " Added");
-    };
-
-    handleRemove = (survey) => {
-        alert(survey.name + " Removed");
     };
 
     getSurveysOptions = () => {
@@ -49,7 +45,6 @@ class Home extends Component {
         return surveyOptions;
     };
 
-
     getAssignedSurveysOptions = () => {
         let surveyOptions = [];
         for (let i in this.props.surveys) {
@@ -62,6 +57,41 @@ class Home extends Component {
         return surveyOptions;
     };
 
+    handleAdd = (survey) => {
+        if (!this.state.selectedEmployeeId) {
+            alert("Please select and employee");
+            return;
+        }
+        if (survey) {
+            let assignedSurveys = {...this.state.assignedSurveys};
+            assignedSurveys[this.state.selectedEmployeeId].push(survey.id);
+            this.setState({assignedSurveys})
+        }
+    };
+
+    handleRemove = (survey) => {
+        if (survey) {
+            let assignedSurveys = {...this.state.assignedSurveys};
+            assignedSurveys[this.state.selectedEmployeeId].push(survey.id);
+            let index = assignedSurveys[this.state.selectedEmployeeId].indexOf(survey.id);
+            if (index > -1) {
+                assignedSurveys[this.state.selectedEmployeeId].splice(index, 1);
+            }
+            this.setState({assignedSurveys})
+        }
+    };
+
+    handleEmployeeChange = (e) => {
+        let selectedEmployeeId = e.target.value;
+        if (selectedEmployeeId) {
+            let assignedSurveys = {...this.state.assignedSurveys};
+            if (!assignedSurveys[selectedEmployeeId]) {
+                assignedSurveys[selectedEmployeeId] = [];
+            }
+            this.setState({assignedSurveys, selectedEmployeeId})
+        }
+    };
+
     render() {
         return (
             <section className="section">
@@ -70,7 +100,7 @@ class Home extends Component {
                         <div className="column has-text-centered">
                             <h3>Select Employee</h3>
                             <div className="select">
-                                <select>
+                                <select onChange={this.handleEmployeeChange}>
                                     {this.getEmployeeOptions()}
                                 </select>
                             </div>
