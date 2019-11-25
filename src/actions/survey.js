@@ -8,12 +8,12 @@ export const getSurveys = () => {
         })
             .then(response => {
                 dispatch({
-                    type: "SUCCESS",
+                    type: "GET_SURVEYS",
                     data: response.data,
                 })
             })
             .catch(error => {
-                dispatch({ type: "ERROR" })
+                dispatch({ type: "ERROR_SURVEYS" })
             })
     }
 };

@@ -1,21 +1,38 @@
 
 
 const initialState = {
-    employees: {},
+    data: {},
+    apiSuccess: false,
+    apiUpdated: false
 };
 
 export default function employees(state = initialState, action) {
+    console.log(action.type);
+    console.log(action.data);
     switch (action.type) {
-        case 'GET':
+        case 'GET_EMPLOYEES':
             console.log('get all');
-            return {};
-        case 'SAVE':
+            return {
+                ...state,
+                data: action.data.employees,
+                apiSuccess: true,
+                apiUpdated: !state.apiUpdated
+            };
+        case 'SAVE_EMPLOYEES':
             console.log('saved');
-            return {};
-        case 'ERROR':
+            return {
+                ...state,
+                apiSuccess: true,
+                apiUpdated: !state.apiUpdated
+            };
+        case 'ERROR_EMPLOYEES':
             console.log('error');
-            return {};
+            return {
+                ...state,
+                apiSuccess: false,
+                apiUpdated: !state.apiUpdated
+            };
         default:
-            return {};
+            return state;
     }
 };

@@ -11,17 +11,17 @@ export class AssignedSurvey extends Component {
     }
 
     onRemoveClick = (e) => {
-        this.props.handleRemove();
+        this.props.handleRemove(this.props.survey);
     };
 
     render() {
         return (
             <div className="columns">
                 <div className="column has-text-left">
-                    <span>{this.props.suvey.name}</span>
+                    <span>{this.props.survey.name}</span>
                 </div>
                 <div className="column has-text-right">
-                    <button className="button is-primary" onClick={this.onRemoveClick}>
+                    <button className="button is-danger" onClick={this.onRemoveClick}>
                         Remove
                     </button>
                 </div>

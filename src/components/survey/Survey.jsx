@@ -11,14 +11,14 @@ export class Survey extends Component {
     }
 
     onAddClick = (e) => {
-        this.props.handleAdd();
+        this.props.handleAdd(this.props.survey);
     };
 
     render() {
         return (
             <div className="columns">
                 <div className="column has-text-left">
-                    <span>{this.props.suvey.name}</span>
+                    <span>{this.props.survey.name}</span>
                 </div>
                 <div className="column has-text-right">
                     <button className="button is-primary" onClick={this.onAddClick}>

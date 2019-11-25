@@ -1,18 +1,29 @@
 
 
 const initialState = {
-    survey: {},
+    data: {},
+    apiSuccess: false,
+    apiUpdated: false
 };
 
 export default function survey(state = initialState, action) {
     switch (action.type) {
-        case 'GET':
+        case 'GET_SURVEYS':
             console.log('get all');
-            return {};
-        case 'ERROR':
+            return {
+                ...state,
+                data: action.data.surveys,
+                apiSuccess: true,
+                apiUpdated: !state.apiUpdated
+            };
+        case 'ERROR_SURVEYS':
             console.log('error');
-            return {};
+            return {
+                ...state,
+                apiSuccess: false,
+                apiUpdated: !state.apiUpdated
+            };
         default:
-            return {};
+            return state;
     }
 };

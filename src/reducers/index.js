@@ -1,10 +1,10 @@
 import {combineReducers} from "redux";
-import employee from "./employee";
-import survey from "./survey";
+import employees from "./employee";
+import surveys from "./survey";
 
 const app = combineReducers({
-    employee,
-    survey
+    employees,
+    surveys
 });
 
 export default app

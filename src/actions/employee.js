@@ -8,12 +8,12 @@ export const getEmployees = () => {
         })
             .then(response => {
                 dispatch({
-                    type: "GET",
+                    type: "GET_EMPLOYEES",
                     data: response.data,
                 })
             })
             .catch(error => {
-                dispatch({ type: "ERROR" })
+                dispatch({ type: "ERROR_EMPLOYEES" })
             })
     }
 };
@@ -27,12 +27,12 @@ export const saveEmployees = (data) => {
         })
             .then(response => {
                 dispatch({
-                    type: "SAVE",
+                    type: "SAVE_EMPLOYEES",
                     data: response.data,
                 })
             })
             .catch(error => {
-                dispatch({ type: "ERROR" })
+                dispatch({ type: "ERROR_EMPLOYEES" })
             })
     }
 };
