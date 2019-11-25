@@ -35,31 +35,41 @@ class Home extends Component {
 
     getSurveysOptions = () => {
         let surveyOptions = [];
+
+        let assignedSurveys = null;
+        if (this.state.selectedEmployeeId) {
+            assignedSurveys = this.state.assignedSurveys[this.state.selectedEmployeeId];
+        }
         for (let i in this.props.surveys) {
-            let survey = this.props.surveys[i];
-            surveyOptions.push(<Survey
-                survey={survey}
-                handleAdd={this.handleAdd}
-            />)
+            if (!assignedSurveys || !assignedSurveys[i]) {
+                let survey = this.props.surveys[i];
+                surveyOptions.push(<Survey
+                    survey={survey}
+                    handleAdd={this.handleAdd}
+                />)
+            }
         }
         return surveyOptions;
     };
 
     getAssignedSurveysOptions = () => {
         let surveyOptions = [];
-        for (let i in this.props.surveys) {
-            let survey = this.props.surveys[i];
-            surveyOptions.push(<AssignedSurvey
-                survey={survey}
-                handleRemove={this.handleRemove}
-            />)
+        if (this.state.selectedEmployeeId) {
+            let assignedSurveys = this.state.assignedSurveys[this.state.selectedEmployeeId];
+            for (let i in assignedSurveys) {
+                let survey = this.props.surveys[i];
+                surveyOptions.push(<AssignedSurvey
+                    survey={survey}
+                    handleRemove={this.handleRemove}
+                />)
+            }
         }
         return surveyOptions;
     };
 
     handleAdd = (survey) => {
         if (!this.state.selectedEmployeeId) {
-            alert("Please select and employee");
+            alert("Please select an employee");
             return;
         }
         if (survey) {
@@ -72,7 +82,6 @@ class Home extends Component {
     handleRemove = (survey) => {
         if (survey) {
             let assignedSurveys = {...this.state.assignedSurveys};
-            assignedSurveys[this.state.selectedEmployeeId].push(survey.id);
             let index = assignedSurveys[this.state.selectedEmployeeId].indexOf(survey.id);
             if (index > -1) {
                 assignedSurveys[this.state.selectedEmployeeId].splice(index, 1);
@@ -90,6 +99,20 @@ class Home extends Component {
             }
             this.setState({assignedSurveys, selectedEmployeeId})
         }
+    };
+
+    handleDone = () => {
+        if (!this.state.selectedEmployeeId) {
+            alert("Please select an employee");
+            return;
+        }
+        if (!this.state.assignedSurveys[this.state.selectedEmployeeId]
+            || this.state.assignedSurveys[this.state.selectedEmployeeId].length <= 0) {
+            alert("No survey assigned");
+            return;
+        }
+
+        this.props.saveEmployees(this.state.assignedSurveys[this.state.selectedEmployeeId]);
     };
 
     render() {
@@ -118,7 +141,7 @@ class Home extends Component {
                     </div>
                     <div className="columns">
                         <div className="column has-text-centered">
-                            <button className="button is-primary">
+                            <button className="button is-primary" onClick={this.handleDone}>
                                 Done
                             </button>
                         </div>
