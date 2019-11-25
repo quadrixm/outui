@@ -4,7 +4,7 @@ export const getEmployees = () => {
     return (dispatch) => {
         return axios({
             method: 'get',
-            url: 'localhost:8000//employees',
+            url: 'http://localhost:8000/employees',
         })
             .then(response => {
                 dispatch({
@@ -23,7 +23,7 @@ export const saveEmployees = (data) => {
         return axios({
             method: 'post',
             data,
-            url: 'localhost:8000//employees',
+            url: 'http://localhost:8000/employees',
         })
             .then(response => {
                 dispatch({

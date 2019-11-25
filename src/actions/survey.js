@@ -4,7 +4,7 @@ export const getSurveys = () => {
     return (dispatch) => {
         return axios({
             method: 'get',
-            url: 'localhost:8000//surveys',
+            url: 'http://localhost:8000/surveys',
         })
             .then(response => {
                 dispatch({
